@@ -1,0 +1,11 @@
+# "#"代表注释，"*"代表通配多个字符，"?"代表通配单个字符，"!"代表取反
+# 忽略pyc文件
+*.pyc
+*.DS_Store
+
+
+# 忽略文件夹
+__pycache__/
+migrations/
+!migrations/__init__.py
+.idea/
