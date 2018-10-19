@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block mainbody %}
+    <style>
+        .titleText {
+            padding: 20px 0px 10px 50px;
+        }
+
+        .linkText1 {
+            padding: 0px 0px 10px 100px;
+        }
+
+        .linkText2 {
+            padding: 0px 0px 10px 150px;
+        }
+
+    </style>
+
+    <h1 class="titleText"> 相关地址</h1>
+    <div class="linkText1">后台地址</div>
+    <div class="linkText2">
+        <a href="/xadmin/">进入主页面</a></div>
+    <div class="linkText2">
+        <a href="/xadmin/">新增业务</a></div>
+
+
+    <div class="linkText1">前台地址</div>
+    <div class="linkText2">
+        <a href="/test/bdd">行为驱动开发 → 测试用例页面</a></div>
+    <div class="linkText2">
+        <a href="/test/ddd">数据驱动开发 → 测试用例页面</a></div>
+
+
+{% endblock %}
