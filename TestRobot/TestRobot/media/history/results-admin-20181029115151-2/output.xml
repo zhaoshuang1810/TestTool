@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.0.4 (Python 3.7.0 on darwin)" generated="20181029 11:50:59.717">
+<suite id="s1" name="Chapter" source="/Users/zs/GitRepositpry/Code/TestRobot/TestCase/Case/InterfaceTest/ChapterPractice/chapter.robot">
+<test id="s1-t1" name="TestCase-003">
+<doc>青豆中心</doc>
+<tags>
+<tag>chapter</tag>
+<tag>ChapterPractice</tag>
+<tag>InterfaceTest</tag>
+<tag>Run</tag>
+</tags>
+<status status="FAIL" starttime="20181029 11:50:59.885" endtime="20181029 11:50:59.885" critical="yes">Test case contains no keywords.</status>
+</test>
+<doc>章节练习</doc>
+<status status="FAIL" starttime="20181029 11:50:59.720" endtime="20181029 11:50:59.887"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1">Critical Tests</stat>
+<stat pass="0" fail="1">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="1">chapter</stat>
+<stat pass="0" fail="1">ChapterPractice</stat>
+<stat pass="0" fail="1">InterfaceTest</stat>
+<stat pass="0" fail="1">Run</stat>
+</tag>
+<suite>
+<stat pass="0" fail="1" id="s1" name="Chapter">Chapter</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20181029 11:50:59.749" level="WARN">Imported resource file '/Users/zs/GitRepositpry/Code/TestRobot/TestCase/Common/Request.robot' is empty.</msg>
+</errors>
+</robot>

@@ -1,0 +1,313 @@
+{% extends "base.html" %}
+{% block mainbody %}
+
+    <style>
+        table, table tr th, table tr td {
+            border: 1.5px solid black;
+            font-size: 13px;
+            line-height: 2;
+        }
+
+        table {
+            float: left;
+            width: 1800px;
+            height: auto;
+            padding: 0px 0px 100px 0px;
+            border-collapse: collapse;
+        }
+
+        input, select {
+            height: 25px;
+        }
+
+        .tableTextCenter {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        #content_case {
+            width: auto;
+            height: auto;
+            padding: 10px 40px;
+        }
+
+        .button_table {
+            width: 126px;
+            height: 36px;
+            border-radius: 15px;
+            background-color: #5897fb;
+            color: #ffffff;
+        }
+
+        .tc {
+            width: 150px;
+            height: 36px;
+            margin: 0px 10px 0px 0px;
+            background-color: #ffffcc;
+            color: #1155cc;
+        }
+
+        .content_width {
+            float: left;
+            width: 1800px;
+            height: auto;
+            padding: 0px 0px 10px 0px;
+
+        }
+
+    </style>
+
+    <br>
+    <div id="content_case">
+        <h1><a href="/">首页</a></h1>
+        <div>
+            <div class="content_width">
+                 <span>
+                <header id="site-header" class="content_width">
+                    <div id="header-search-box">
+                        <form action="bdd" role="search" method="get" id="searchform" action="{% url 'bdd' %}">
+                            {% csrf_token %}
+                             <span>用例标签：</span>
+                                 <select type="search" id="casetag" name="casetag">
+                                    {% for op in casetags %}
+                                        {% if op.1 ==  selectcasetag %}
+                                            <option id="{{ op.0 }}" value="{{ op.1 }}" selected>{{ op.2 }}</option>
+                                        {% else %}
+                                            <option id="{{ op.0 }}" value="{{ op.1 }}">{{ op.2 }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            <span>功能标签：</span>
+                             <select type="search" id="funtag" name="funtag">
+                                {% for op in funtags %}
+                                    <option id="{{ op.0 }}" value="{{ op.1 }}">{{ op.2 }}</option>
+                                {% endfor %}
+                            </select>
+                            <span>用例名称：</span>
+                            <input style="width: 200px" type="search" name="keyword_name" placeholder="输入用例名称……">
+                            <button type="submit"><span class="ion-ios-search-strong">搜 索</span></button>
+                        </form>
+                    </div>
+                </header>
+                </span>
+
+            </div>
+
+            <div class="content_width">
+                <span>
+                     <button class="tc" type="button" onclick="create_business_fun()">初始化业务关键字</button>
+                     <button class="tc" type="button" onclick="create_case_fun()">生成用例组件</button>
+                     <button class="tc" type="button" onclick="run_case_fun()">执行用例组件</button>
+                    <button class="tc"><a href="../media/results/report.html" target="_blank"
+                                          type="button">查看用例执行报告</a></button>
+                </span>
+            </div>
+        </div>
+        <table>
+            <tr>
+                <th width="50" class="text tableTextCenter" rowspan="2"><input type="checkbox" onclick="swapCheck()">
+                </th>
+                <th width="100" class="text tableTextCenter" rowspan="2">组件名称</th>
+
+                <th class="text tableTextCenter" colspan="7">用例详情</th>
+            </tr>
+            <tr>
+                <th width="100" class="text tableTextCenter">用例编号</th>
+                <th width="300" class="text tableTextCenter">用例名称</th>
+                <th width="200" class="text tableTextCenter">用例标签</th>
+                <th class="text tableTextCenter">用例流程</th>
+                <th class="text tableTextCenter">用例参数</th>
+                <th width="50" class="text tableTextCenter">排序</th>
+                <th width="100" class="text tableTextCenter">操作</th>
+            </tr>
+
+            {% for i in data %}
+                <form action="sort" method="post">
+                    {% csrf_token %}
+                    <tr>
+                        <td class="text tableTextCenter" rowspan="{{ i.2|length }}"><input type="checkbox" name="goods"
+                                                                                           value={{ i.0 }}></td>
+                        <td class="text tableTextCenter" rowspan="{{ i.2|length }}">{{ i.1 }}</td>
+                        <td class="text tableTextCenter">{{ i.2.0.1 }}</td>
+                        <td style="vertical-align: middle;">{{ i.2.0.2 }}</td>
+                        <td class="text tableTextCenter">{{ i.2.0.3 }}</td>
+                        <td style="vertical-align: middle;">
+                            {% for k in i.2.0.4 %}
+                                <div>
+                                    <span>{{ forloop.counter }}.{{ k.0 }} </span>
+                                </div>
+                            {% endfor %}
+
+                        </td>
+                        <td style="vertical-align: middle;">
+                            {% for k in i.2.0.4 %}
+                                <div>
+                                    <span>{{ forloop.counter }}.{{ k.1 }} </span>
+                                </div>
+                            {% endfor %}
+
+                        </td>
+
+
+                        <td class="text tableTextCenter"><input style="width: 50px" ype="text" class="ns" name="sort"
+                                                                value={{ i.2.0.5 }}></td>
+                        <td class="text tableTextCenter">
+                            <div>
+                                <button type="button" class="nt" trId={{ i.2.0.0 }}>修改排序</button>
+                                <button type="button" class="nr" cname={{ i.2.0.1 }} cid={{ i.2.0.0 }}>执行用例</button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% for j in i.2 %}
+                        {% if j != i.2.0 %}
+                            <tr>
+                                <td class="text tableTextCenter">{{ j.1 }}</td>
+                                <td style="vertical-align: middle;">{{ j.2 }}</td>
+                                <td class="text tableTextCenter">{{ j.3 }}</td>
+                                <td style="vertical-align: middle;">
+                                    {% for k in j.4 %}
+                                        <div>
+                                            <span>{{ forloop.counter }}.{{ k.0 }} </span>
+                                        </div>
+                                    {% endfor %}
+                                </td>
+
+                                <td style="vertical-align: middle;">
+                                    {% for k in j.4 %}
+                                        <div>
+                                            <span>{{ forloop.counter }}.{{ k.1 }} </span>
+                                        </div>
+                                    {% endfor %}
+                                </td>
+                                <td class="text tableTextCenter"><input style="width: 50px" ype="text" class="ns"
+                                                                        name="sort"
+                                                                        value={{ j.5 }}></td>
+                                <td class="text tableTextCenter">
+                                    <div>
+                                        <button type="button" class="nt" trId={{ j.0 }}>修改排序</button>
+                                        <button type="button" class="nr" cname={{ j.1 }} cid={{ j.0 }} >执行用例</button>
+                                    </div>
+                                </td>
+
+                                </td>
+
+
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </form>
+            {% endfor %}
+
+        </table>
+    </div>
+
+    <script type="text/javascript">
+        //checkbox 全选/取消全选
+        var isCheckAll = false;
+
+        function swapCheck() {
+            if (isCheckAll) {
+                $("input[type='checkbox']").each(function () {
+                    this.checked = false;
+                });
+                isCheckAll = false;
+            } else {
+                $("input[type='checkbox']").each(function () {
+                    this.checked = true;
+                });
+                isCheckAll = true;
+            }
+        }
+
+        function create_business_fun() {
+            var selectcasetag = $("#casetag").find("option:selected").val();
+            var number = '';
+            $('input:checkbox[name=goods]:checked').each(function (k) {
+                if (k == 0) {
+                    number = $(this).val();
+                } else {
+                    number += ',' + $(this).val();
+                }
+            })
+            $.ajax({
+                type: "GET",  //提交方式
+                url: "/test/bdd/createbusiness",//路径
+                data: {
+                    "suiteids": number,
+                    "selectcasetag": selectcasetag
+                },//数据，这里使用的是Json格式进行传输
+                success: function (result) {//返回数据根据结果进行相应的处理
+                    if (result.success) {
+                        if (result.complete) {
+                            alert(result.data)
+                        } else {
+                            alert('业务初始化成功')
+                        }
+                        window.location.reload()
+                    } else {
+                        alert("失败")
+                    }
+                }
+            });
+        }
+
+        function create_case_fun() {
+            var selectcasetag = $("#casetag").find("option:selected").val();
+            var number = '';
+            $('input:checkbox[name=goods]:checked').each(function (k) {
+                if (k == 0) {
+                    number = $(this).val();
+                } else {
+                    number += ',' + $(this).val();
+                }
+            })
+
+            $.ajax({
+                type: "GET",  //提交方式
+                url: "/test/bdd/createsuitebdd",//路径
+                data: {
+                    "suiteids": number,
+                    "selectcasetag": selectcasetag
+                },//数据，这里使用的是Json格式进行传输
+                success: function (result) {//返回数据根据结果进行相应的处理
+                    if (result.success) {
+                        alert('用例创建成功')
+                        window.location.reload()
+                    } else {
+                        alert("失败")
+                    }
+                }
+            });
+        }
+
+        function run_case_fun() {
+            var selectcasetag = $("#casetag").find("option:selected").val();
+            var number = '';
+            $('input:checkbox[name=goods]:checked').each(function (k) {
+                if (k == 0) {
+                    number = $(this).val();
+                } else {
+                    number += ',' + $(this).val();
+                }
+            })
+
+            $.ajax({
+                type: "GET",  //提交方式
+                url: "/test/bdd/runsuitebdd",//路径
+                data: {
+                    "suiteids": number,
+                    "selectcasetag": selectcasetag
+                },//数据，这里使用的是Json格式进行传输
+                success: function (result) {//返回数据根据结果进行相应的处理
+                    if (result.success) {
+                        alert('用例执行完成！')
+                        window.location.reload()
+                    } else {
+                        alert("失败")
+                    }
+                }
+            });
+        }
+
+    </script>
+{% endblock %}

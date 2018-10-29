@@ -1,0 +1,50 @@
+#安装命令
+pip3 install robotframework
+pip3 install Django==1.11.16
+pip3 install requests
+pip3 install robotframework-selenium2library
+pip3 install robotframework-appiumlibrary（报错的话安装：pip install six）
+pip3 install  pyyaml
+pip3 install pymysql
+pip3 install jinja2
+pip3 install xlrd
+pip3 install xlutils
+pip3 install imutils
+pip3 install pillow
+pip3 install scipy
+pip3 install future
+pip3 install django-crispy-forms
+pip3 install django-formtools
+pip3 install httplib2
+pip3 install django-import-export
+pip3 install scikit-image
+pip3 install opencv-python
+pip3 install mysqlclient
+（win下安装失败，下载whl文件后安装，https://www.lfd.uci.edu/~gohlke/pythonlibs/）
+pip3 install scikit-image.whl
+pip3 install opencv-python.whl
+pip3 install mysqlclient.whl
+
+#创建项目
+django-admin.py startproject project_name
+
+#创建App
+python manage.py startapp app_name
+或 django-admin.py startapp app_name
+
+#创建数据库表
+python3 manage.py makemigrations
+python3 manage.py migrate
+
+#创建用户
+python3 manage.py createsuperuser
+
+#输出日志
+import logging
+logger = logging.getLogger('django')
+logger.info(count)
+
+#启动服务器命令
+python manage.py runserver 0.0.0.0:8000
+python manage.py runserver 172.16.165.133:8000
+python manage.py runserver 172.16.165.85:8000

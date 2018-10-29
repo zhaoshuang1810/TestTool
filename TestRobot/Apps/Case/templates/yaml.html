@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block mainbody %}
+
+    {% csrf_token %}
+    <div>第一步：
+    <button type="button" onclick="editfile()">更新接口文件</button></div>
+    <div>第二步：
+    <button type="button" onclick="edittag()">更新接口标签</button></div>
+    <div>第三步：
+    <button type="button" onclick="editpath()">更新接口路径</button></div>
+    <div>第四步：
+    <button type="button" onclick="editparam()">更新接口参数</button></div>
+    <div style="color: red;">PS：按步骤点击，乱序点击会报错</div>
+
+
+    <script type="text/javascript"
+            src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+
+        function editfile() {
+            $.ajax({
+                type: "GET",  //提交方式
+                url: "/yaml/editfile",//路径
+                data: {},//数据，这里使用的是Json格式进行传输
+                success: function (result) {//返回数据根据结果进行相应的处理
+                    if (result.success) {
+                        if (result.filenames) {
+
+                            alert("接口文件更新完成！\n" +
+                                "新增接口文档有：" + result.filenames)
+
+                        } else {
+
+                            alert("接口文件更新完成！\n" +
+                                "没有新增的接口文档！")
+
+                        }
+                        window.location.reload()
+
+                    } else {
+                        alert("失败")
+                    }
+                }
+            });
+        }
+
+        function edittag() {
+            $.ajax({
+                type: "GET",  //提交方式
+                url: "/yaml/edittag",//路径
+                data: {},//数据，这里使用的是Json格式进行传输
+                success: function (result) {//返回数据根据结果进行相应的处理
+                    if (result.success) {
+                        if (result.filenames) {
+
+                            alert("接口文件Tag更新完成！\n" +
+                                "新增的接口Tag有：" + result.filenames)
+
+                        } else {
+
+                            alert("接口文件Tag更新完成！\n" +
+                                "没有新增的接口Tag！")
+
+                        }
+                        window.location.reload()
+
+                    } else {
+                        alert("失败")
+                    }
+                }
+            });
+        }
+
+
+        function editpath() {
+            $.ajax({
+                type: "GET",  //提交方式
+                url: "/yaml/editpath",//路径
+                data: {},//数据，这里使用的是Json格式进行传输
+                success: function (result) {//返回数据根据结果进行相应的处理
+                    if (result.success) {
+                        if (result.filenames) {
+
+                            alert("接口文件Path更新完成！\n" +
+                                "新增的接口Path有：" + result.filenames)
+
+                        } else {
+
+                            alert("接口文件Path更新完成！\n" +
+                                "没有新增的接口Path！")
+
+                        }
+                        window.location.reload()
+
+                    } else {
+                        alert("失败")
+                    }
+                }
+            });
+        }
+
+        function editparam() {
+            $.ajax({
+                type: "GET",  //提交方式
+                url: "/yaml/editparam",//路径
+                data: {},//数据，这里使用的是Json格式进行传输
+                success: function (result) {//返回数据根据结果进行相应的处理
+                    if (result.success) {
+                        if (result.filenames) {
+
+                            alert("接口参数更新完成！\n" +
+                                "新增的接口参数有：" + result.filenames)
+
+                        } else {
+
+                            alert("接口参数更新完成！\n" +
+                                "没有新增的接口参数！")
+
+                        }
+                        window.location.reload()
+
+                    } else {
+                        alert("失败")
+                    }
+                }
+            });
+        }
+
+    </script>
+
+{% endblock %}

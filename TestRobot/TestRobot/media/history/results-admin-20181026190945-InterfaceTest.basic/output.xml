@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.0.4 (Python 3.7.0 on darwin)" generated="20181026 19:09:45.199">
+<suite id="s1" name="Case" source="/Users/zs/GitRepositpry/Code/TestRobot/TestCase/Case">
+<suite id="s1-s1" name="InterfaceTest" source="/Users/zs/GitRepositpry/Code/TestRobot/TestCase/Case/InterfaceTest">
+<suite id="s1-s1-s1" name="BasicFunction" source="/Users/zs/GitRepositpry/Code/TestRobot/TestCase/Case/InterfaceTest/BasicFunction">
+<suite id="s1-s1-s1-s1" name="Basic" source="/Users/zs/GitRepositpry/Code/TestRobot/TestCase/Case/InterfaceTest/BasicFunction/basic.robot">
+<test id="s1-s1-s1-s1-t1" name="TestCase-001">
+<kw name="ChangeType" library="BasicFunction">
+<doc>修改考试类型</doc>
+<arguments>
+<arg>1</arg>
+</arguments>
+<kw name="Get Params" library="SqlDjango">
+<arguments>
+<arg>${caseid}</arg>
+<arg>ChangeType</arg>
+</arguments>
+<assign>
+<var>${userid}</var>
+<var>${subjecttype}</var>
+</assign>
+<msg timestamp="20181026 19:09:45.354" level="INFO">SELECT id FROM `business` WHERE del_flag=0 AND `name`="ChangeType"</msg>
+<msg timestamp="20181026 19:09:45.354" level="INFO">${userid} = 1</msg>
+<msg timestamp="20181026 19:09:45.354" level="INFO">${subjecttype} = 自考,公共课（本）,中国近现代史纲要</msg>
+<status status="PASS" starttime="20181026 19:09:45.342" endtime="20181026 19:09:45.355"></status>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<doc>Fails if the given condition is not true.</doc>
+<arguments>
+<arg>${False}</arg>
+<arg>代码还没有实现</arg>
+</arguments>
+<msg timestamp="20181026 19:09:45.355" level="FAIL">代码还没有实现</msg>
+<status status="FAIL" starttime="20181026 19:09:45.355" endtime="20181026 19:09:45.355"></status>
+</kw>
+<status status="FAIL" starttime="20181026 19:09:45.341" endtime="20181026 19:09:45.356"></status>
+</kw>
+<doc>修改考试类型，科目类型</doc>
+<tags>
+<tag>basic</tag>
+<tag>BasicFunction</tag>
+<tag>InterfaceTest</tag>
+<tag>Run</tag>
+</tags>
+<status status="FAIL" starttime="20181026 19:09:45.339" endtime="20181026 19:09:45.356" critical="yes">代码还没有实现</status>
+</test>
+<test id="s1-s1-s1-s1-t2" name="TestCase-002">
+<kw name="chapter-answer" library="BasicFunction">
+<doc>章节答题</doc>
+<arguments>
+<arg>2</arg>
+</arguments>
+<kw name="Get Params" library="SqlDjango">
+<arguments>
+<arg>${caseid}</arg>
+<arg>chapter-answer</arg>
+</arguments>
+<assign>
+<var>${userid}</var>
+<var>${answer}</var>
+</assign>
+<msg timestamp="20181026 19:09:45.367" level="INFO">SELECT id FROM `business` WHERE del_flag=0 AND `name`="chapter-answer"</msg>
+<msg timestamp="20181026 19:09:45.367" level="INFO">${userid} = 1</msg>
+<msg timestamp="20181026 19:09:45.367" level="INFO">${answer} = 1</msg>
+<status status="PASS" starttime="20181026 19:09:45.357" endtime="20181026 19:09:45.367"></status>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<doc>Fails if the given condition is not true.</doc>
+<arguments>
+<arg>${False}</arg>
+<arg>代码还没有实现</arg>
+</arguments>
+<msg timestamp="20181026 19:09:45.368" level="FAIL">代码还没有实现</msg>
+<status status="FAIL" starttime="20181026 19:09:45.368" endtime="20181026 19:09:45.368"></status>
+</kw>
+<status status="FAIL" starttime="20181026 19:09:45.357" endtime="20181026 19:09:45.368"></status>
+</kw>
+<doc>章节练习</doc>
+<tags>
+<tag>basic</tag>
+<tag>BasicFunction</tag>
+<tag>InterfaceTest</tag>
+<tag>Run</tag>
+</tags>
+<status status="FAIL" starttime="20181026 19:09:45.356" endtime="20181026 19:09:45.368" critical="yes">代码还没有实现</status>
+</test>
+<doc>修改考试类型功能</doc>
+<status status="FAIL" starttime="20181026 19:09:45.230" endtime="20181026 19:09:45.369"></status>
+</suite>
+<status status="FAIL" starttime="20181026 19:09:45.228" endtime="20181026 19:09:45.370"></status>
+</suite>
+<status status="FAIL" starttime="20181026 19:09:45.225" endtime="20181026 19:09:45.371"></status>
+</suite>
+<status status="FAIL" starttime="20181026 19:09:45.201" endtime="20181026 19:09:45.371"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="2">Critical Tests</stat>
+<stat pass="0" fail="2">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="2">basic</stat>
+<stat pass="0" fail="2">BasicFunction</stat>
+<stat pass="0" fail="2">InterfaceTest</stat>
+<stat pass="0" fail="2">Run</stat>
+</tag>
+<suite>
+<stat pass="0" fail="2" id="s1" name="Case">Case</stat>
+<stat pass="0" fail="2" id="s1-s1" name="InterfaceTest">Case.InterfaceTest</stat>
+<stat pass="0" fail="2" id="s1-s1-s1" name="BasicFunction">Case.InterfaceTest.BasicFunction</stat>
+<stat pass="0" fail="2" id="s1-s1-s1-s1" name="Basic">Case.InterfaceTest.BasicFunction.Basic</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20181026 19:09:45.232" level="WARN">Imported resource file '/Users/zs/GitRepositpry/Code/TestRobot/TestCase/Common/Request.robot' is empty.</msg>
+</errors>
+</robot>

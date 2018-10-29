@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.0.4 (Python 3.7.0 on darwin)" generated="20181028 20:10:31.496">
+<suite id="s1" name="Case" source="/Users/zs/GitRepositpry/Code/TestRobot/TestCase/Case">
+<suite id="s1-s1" name="InterfaceTest" source="/Users/zs/GitRepositpry/Code/TestRobot/TestCase/Case/InterfaceTest">
+<suite id="s1-s1-s1" name="BasicFunction" source="/Users/zs/GitRepositpry/Code/TestRobot/TestCase/Case/InterfaceTest/BasicFunction">
+<suite id="s1-s1-s1-s1" name="Basic" source="/Users/zs/GitRepositpry/Code/TestRobot/TestCase/Case/InterfaceTest/BasicFunction/basic.robot">
+<test id="s1-s1-s1-s1-t1" name="TestCase-001">
+<kw name="ChangeType" library="BasicFunction">
+<doc>修改考试类型</doc>
+<arguments>
+<arg>1</arg>
+</arguments>
+<kw name="Get Params" library="SqlDjango">
+<arguments>
+<arg>${caseid}</arg>
+<arg>ChangeType</arg>
+</arguments>
+<assign>
+<var>${userid}</var>
+<var>${subjecttype}</var>
+</assign>
+<msg timestamp="20181028 20:10:31.696" level="INFO">${userid} = 1</msg>
+<msg timestamp="20181028 20:10:31.696" level="INFO">${subjecttype} = 自考,公共课（本）,中国近现代史纲要</msg>
+<status status="PASS" starttime="20181028 20:10:31.681" endtime="20181028 20:10:31.696"></status>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<doc>Fails if the given condition is not true.</doc>
+<arguments>
+<arg>${False}</arg>
+<arg>代码还没有实现</arg>
+</arguments>
+<msg timestamp="20181028 20:10:31.696" level="FAIL">代码还没有实现</msg>
+<status status="FAIL" starttime="20181028 20:10:31.696" endtime="20181028 20:10:31.696"></status>
+</kw>
+<status status="FAIL" starttime="20181028 20:10:31.681" endtime="20181028 20:10:31.697"></status>
+</kw>
+<doc>修改考试类型，科目类型</doc>
+<tags>
+<tag>basic</tag>
+<tag>BasicFunction</tag>
+<tag>InterfaceTest</tag>
+<tag>Run</tag>
+</tags>
+<status status="FAIL" starttime="20181028 20:10:31.679" endtime="20181028 20:10:31.697" critical="yes">代码还没有实现</status>
+</test>
+<doc>修改考试类型功能</doc>
+<status status="FAIL" starttime="20181028 20:10:31.527" endtime="20181028 20:10:31.697"></status>
+</suite>
+<status status="FAIL" starttime="20181028 20:10:31.525" endtime="20181028 20:10:31.698"></status>
+</suite>
+<suite id="s1-s1-s2" name="ChapterPractice" source="/Users/zs/GitRepositpry/Code/TestRobot/TestCase/Case/InterfaceTest/ChapterPractice">
+<suite id="s1-s1-s2-s1" name="Chapter" source="/Users/zs/GitRepositpry/Code/TestRobot/TestCase/Case/InterfaceTest/ChapterPractice/chapter.robot">
+<test id="s1-s1-s2-s1-t1" name="TestCase-002">
+<kw name="ChapterAnswer" library="ChapterPractice">
+<doc>章节答题</doc>
+<arguments>
+<arg>2</arg>
+</arguments>
+<kw name="Get Params" library="SqlDjango">
+<arguments>
+<arg>${caseid}</arg>
+<arg>ChapterAnswer</arg>
+</arguments>
+<assign>
+<var>${userid}</var>
+<var>${answer}</var>
+</assign>
+<msg timestamp="20181028 20:10:31.720" level="INFO">${userid} = 1</msg>
+<msg timestamp="20181028 20:10:31.720" level="INFO">${answer} = 1</msg>
+<status status="PASS" starttime="20181028 20:10:31.709" endtime="20181028 20:10:31.720"></status>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<doc>Fails if the given condition is not true.</doc>
+<arguments>
+<arg>${False}</arg>
+<arg>代码还没有实现</arg>
+</arguments>
+<msg timestamp="20181028 20:10:31.720" level="FAIL">代码还没有实现</msg>
+<status status="FAIL" starttime="20181028 20:10:31.720" endtime="20181028 20:10:31.720"></status>
+</kw>
+<status status="FAIL" starttime="20181028 20:10:31.708" endtime="20181028 20:10:31.720"></status>
+</kw>
+<doc>章节练习</doc>
+<tags>
+<tag>chapter</tag>
+<tag>ChapterPractice</tag>
+<tag>InterfaceTest</tag>
+<tag>Run</tag>
+</tags>
+<status status="FAIL" starttime="20181028 20:10:31.707" endtime="20181028 20:10:31.721" critical="yes">代码还没有实现</status>
+</test>
+<doc>章节练习</doc>
+<status status="FAIL" starttime="20181028 20:10:31.701" endtime="20181028 20:10:31.722"></status>
+</suite>
+<status status="FAIL" starttime="20181028 20:10:31.699" endtime="20181028 20:10:31.724"></status>
+</suite>
+<status status="FAIL" starttime="20181028 20:10:31.524" endtime="20181028 20:10:31.727"></status>
+</suite>
+<status status="FAIL" starttime="20181028 20:10:31.498" endtime="20181028 20:10:31.727"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="2">Critical Tests</stat>
+<stat pass="0" fail="2">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="1">basic</stat>
+<stat pass="0" fail="1">BasicFunction</stat>
+<stat pass="0" fail="1">chapter</stat>
+<stat pass="0" fail="1">ChapterPractice</stat>
+<stat pass="0" fail="2">InterfaceTest</stat>
+<stat pass="0" fail="2">Run</stat>
+</tag>
+<suite>
+<stat pass="0" fail="2" id="s1" name="Case">Case</stat>
+<stat pass="0" fail="2" id="s1-s1" name="InterfaceTest">Case.InterfaceTest</stat>
+<stat pass="0" fail="1" id="s1-s1-s1" name="BasicFunction">Case.InterfaceTest.BasicFunction</stat>
+<stat pass="0" fail="1" id="s1-s1-s1-s1" name="Basic">Case.InterfaceTest.BasicFunction.Basic</stat>
+<stat pass="0" fail="1" id="s1-s1-s2" name="ChapterPractice">Case.InterfaceTest.ChapterPractice</stat>
+<stat pass="0" fail="1" id="s1-s1-s2-s1" name="Chapter">Case.InterfaceTest.ChapterPractice.Chapter</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20181028 20:10:31.529" level="WARN">Imported resource file '/Users/zs/GitRepositpry/Code/TestRobot/TestCase/Common/Request.robot' is empty.</msg>
+</errors>
+</robot>
