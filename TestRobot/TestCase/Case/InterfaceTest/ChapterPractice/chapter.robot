@@ -1,7 +1,6 @@
 *** Settings ***
 Documentation     章节练习
 Force Tags        InterfaceTest    ChapterPractice    chapter
-Resource        ../../../Common/Request.robot
 Resource        ../../../Business/Request/ChapterPractice.robot
 Resource        ../../../Business/Request/BasicFunction.robot
 

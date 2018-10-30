@@ -6,7 +6,7 @@ from Business.models import Business, BusinessToVariable
 from Case.models import SuiteName, CaseBdd, CaseBddToBusiness
 from Config.directory import case_dir, bus_dir, media_dir
 from Data.models import Variable
-from Tag.models import Case, Function
+from Tag.models import Case
 
 
 def getSetting(casetag, suiteid):
@@ -28,8 +28,7 @@ def getSetting(casetag, suiteid):
         content.append("Suite Teardown	     Teardown_suite\n")
         content.append("Test Setup	         Setup_test\n")
         content.append("Test Teardown	     Teardown_test\n")
-
-    content.append("Resource        ../../../Common/" + bustag + ".robot\n")
+        content.append("Resource        ../../../Common/" + bustag + ".robot\n")
     bus_name = list(
         filter(None, [y if '.robot' in y else None for y in os.listdir(os.path.join(bus_dir, bustag))]))
     for name in bus_name:
@@ -166,7 +165,7 @@ def insertbusiness(file_dir, bustag, busid):
         except:
             vars = []
         params = params + vars
-        content.append("    " + "    ".join(params) + "    getParams    ${caseid}    " + busname + "\n")
+        content.append("    " + "    ".join(params) + "    getParamvalues    ${caseid}    " + busname + "\n")
         content.append("    should be true    ${False}    代码还没有实现\n")
         content.append("\n")
 
@@ -176,30 +175,35 @@ def insertbusiness(file_dir, bustag, busid):
     return data
 
 
-def run_robot_cmd(user, tags):
+def run_robot_cmd(user, casetag, tags):
     include = ' '
     if tags:
         include = ' --include ' + " --include ".join(tags) + " "
 
     if not os.path.exists(media_dir):
         os.makedirs(media_dir)
+
     cmd = "python3 -m  robot.run -d " + os.path.join(media_dir, "results") + " --exclude NotRun" + include + case_dir
     print(cmd)
     os.system(cmd)
 
     time_str = time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))
     dir_path_1 = os.path.join(media_dir, 'results')
-    dir_path_2 = os.path.join(media_dir, 'history', 'results-' + user + "-" + time_str + "-" + ".".join(tags))
+    dir_path_2 = os.path.join(media_dir, 'history', casetag, 'results-' + user + "-" + time_str + "-" + ".".join(tags))
     shutil.copytree(dir_path_1, dir_path_2)
 
 
-def run_case_cmd(user, dir, casename):
-    print(dir,casename)
+def run_case_cmd(user, dir, casetag, casename):
+    if not os.path.exists(media_dir):
+        os.makedirs(media_dir)
+
+
+    print(dir, casename)
     cmd = "python3 -m  robot.run -d " + os.path.join(media_dir, "results") + " --test " + casename + " " + dir
     print(cmd)
     os.system(cmd)
 
     time_str = time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))
     dir_path_1 = os.path.join(media_dir, 'results')
-    dir_path_2 = os.path.join(media_dir, 'history', 'results-' + user + "-" + time_str + "-" + casename)
+    dir_path_2 = os.path.join(media_dir, 'history', casetag, 'results-' + user + "-" + time_str + "-" + casename)
     shutil.copytree(dir_path_1, dir_path_2)

@@ -1,14 +1,17 @@
 import json
 import os
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib.auth.models import User as Auser
 
 # Create your views here.
+from robot.result import ExecutionResult
+
 from Business.models import Business
 from Case.method import createcase, getdata, insertbusiness, run_robot_cmd, run_case_cmd
 from Case.models import CaseBdd, CaseBddToBusiness, SuiteName
-from Config.directory import bus_dir, case_dir
+from Config.directory import bus_dir, case_dir, media_dir
 from Config.project import projectName
 from Tag.models import Case, Function
 
@@ -18,6 +21,23 @@ param_dict = {"project": projectName}
 def index(request):
     param_dict['title'] = '首页'
     return render(request, 'index.html', param_dict)
+
+
+def report(request):
+    param_dict['title'] = '报告'
+    data = {}
+    history_dir = os.path.join(media_dir, 'history')
+    keys = list(filter(None, [y for y in os.listdir(history_dir)]))
+    for key in keys:
+        data[key] = {}
+        childkeys = list(filter(None, [y for y in os.listdir(os.path.join(history_dir, key))]))
+        for ckey in childkeys:
+            xml_path = os.path.join(history_dir, key, ckey, 'output.xml')
+            suite = ExecutionResult(xml_path).suite
+            allTests = suite.statistics.critical
+            data[key][ckey] = [allTests.total, allTests.passed, allTests.failed]
+    param_dict['data'] = data
+    return render(request, 'report.html', param_dict)
 
 
 def bdd(request):
@@ -35,7 +55,13 @@ def bdd(request):
     param_dict['selectcasetag'] = casetag
     param_dict['selectfuntag'] = funtag
     param_dict['data'] = getdata(casetag=casetag, funtag=funtag)
-    return render(request, 'test/bdd.html', param_dict)
+
+    sessionid = request.COOKIES.get('sessionid',None)
+    print(sessionid)
+    if sessionid:
+        return render(request, 'test/bdd.html', param_dict)
+    else:
+        return HttpResponseRedirect("/xadmin/")
 
 
 def createsuitebdd(request):
@@ -52,14 +78,16 @@ def createsuitebdd(request):
 
 def runsuitebdd(request):
     casetag = request.GET.get('selectcasetag', 'InterfaceTest')
-    tags = [casetag]
+    tags = []
     suite_nums = request.GET.get('suiteids')
     if suite_nums:
         suite_ids = suite_nums.split(",")
         for suite_id in suite_ids:
             suitename = SuiteName.objects.get(id=suite_id).suitename
             tags.append(suitename.split('.')[0])
-    run_robot_cmd(str(request.user), tags)
+    else:
+        tags.append(casetag)
+    run_robot_cmd(str(request.user), casetag, tags)
     resp = {"success": True}
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
@@ -98,6 +126,7 @@ def sort(request):
     resp = {"success": True}
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
+
 def runsinglecase(request):
     casetag = request.GET.get('selectcasetag', 'InterfaceTest')
     id = request.GET.get('id')
@@ -106,8 +135,8 @@ def runsinglecase(request):
     suitid = CaseBdd.objects.get(id=id).suite.id
     suitname = SuiteName.objects.get(id=suitid).suitename
     funtag = SuiteName.objects.get(id=suitid).function.tag
-    file_dir = os.path.join(case_dir,casetag,funtag,suitname)
-    run_case_cmd(str(request.user),file_dir,name)
+    file_dir = os.path.join(case_dir, casetag, funtag, suitname)
+    run_case_cmd(str(request.user), file_dir, casetag, name)
 
     resp = {"success": True}
     return HttpResponse(json.dumps(resp), content_type="application/json")

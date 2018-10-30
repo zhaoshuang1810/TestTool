@@ -1,6 +1,7 @@
 # coding=utf-8
 
 projectName = '轻题库'
+url = "https://exam.nb01.info"
 
 # 项目数据库，mysql
 dbHost = '172.16.164.173'

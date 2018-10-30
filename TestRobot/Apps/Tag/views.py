@@ -22,29 +22,28 @@ def generator(request):
 
 
 def initdir(request):
-    key_tag = 'tag'
-    casetags = list(Case.objects.filter(tag='InterfaceDocument').values(key_tag))
-    funtags = list(Function.objects.all().values(key_tag))
+    casetags = [c['tag'] for c in Case.objects.all().values('tag')]
+    casetags.remove('InterfaceDocument')
+    funtags = [f['tag'] for f in Function.objects.all().values('tag')]
 
     for tag in casetags:
-        if not os.path.exists(os.path.join(case_dir, tag[key_tag])):
-            os.makedirs(os.path.join(case_dir, tag[key_tag]))
+        if not os.path.exists(os.path.join(case_dir, tag)):
+            os.makedirs(os.path.join(case_dir, tag))
         for tag2 in funtags:
-            if not os.path.exists(os.path.join(case_dir, tag[key_tag], tag2[key_tag])):
-                os.makedirs(os.path.join(case_dir, tag[key_tag], tag2[key_tag]))
+            if not os.path.exists(os.path.join(case_dir, tag, tag2)):
+                os.makedirs(os.path.join(case_dir, tag, tag2))
 
-    key_suite = 'suitename'
-    suitenames = list(SuiteName.objects.all().values('suitename'))
+    suitenames = [s['suitename'] for s in SuiteName.objects.all().values('suitename')]
     for suite in suitenames:
-        funtag = SuiteName.objects.get(suitename=suite[key_suite]).function.tag
+        funtag = SuiteName.objects.get(suitename=suite).function.tag
         for tag in casetags:
-            if not os.path.exists(os.path.join(case_dir, tag[key_tag], funtag, suite[key_suite])):
-                open(os.path.join(case_dir, tag[key_tag], funtag, suite[key_suite]), 'w')
+            if not os.path.exists(os.path.join(case_dir, tag, funtag, suite)):
+                open(os.path.join(case_dir, tag, funtag, suite), 'w')
 
-    bustags = list(Business.objects.all().values('tag'))
+    bustags =  [b['tag'] for b in Business.objects.all().values('tag')]
     for tag in bustags:
-        if not os.path.exists(os.path.join(bus_dir, tag[key_tag])):
-            os.makedirs(os.path.join(bus_dir, tag[key_tag]))
+        if not os.path.exists(os.path.join(bus_dir, tag)):
+            os.makedirs(os.path.join(bus_dir, tag))
 
     resp = {"success": True}
     return HttpResponse(json.dumps(resp), content_type="application/json")
@@ -60,10 +59,10 @@ def initbusiness(request):
                 content = []
                 content.append("*** Settings ***\n")
                 content.append("Documentation        " + funtagname + "\n")
+                content.append("Library              Collections\n")
                 content.append("Library              ../../Library/SqlDjango.py\n")
                 if bustag == 'Request':
-                    content.append("Library              Collections\n")
-                    content.append("Library              RequestsLibrary\n")
+                    content.append("Library              ../../Library/LibRequest.py\n")
                 elif bustag == "Appium":
                     content.append("Library              AppiumLibrary\n")
                 elif bustag == 'Selenium':

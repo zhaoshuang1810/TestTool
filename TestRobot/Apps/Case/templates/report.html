@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block mainbody %}
+
+    <style>
+        .titleText {
+            padding: 20px 0px 10px 50px;
+        }
+
+        .linkText1 {
+            padding: 0px 0px 10px 100px;
+        }
+
+        .linkText2 {
+            padding: 0px 0px 10px 150px;
+        }
+
+    </style>
+
+    <h1 class="titleText"> 执行报告</h1>
+    {% for k,v in data.items %}
+        <div class="linkText1">{{ k }}</div>
+        {% for kk,vv in v.items %}
+            <div class="linkText2">
+                <a href="/media/history/{{ k }}/{{ kk }}/report.html">{{ kk }}</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <i style="color: blue">总数：{{ vv.0 }}</i>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <i style="color: green">成功：{{ vv.1 }}</i>
+                &nbsp;&nbsp;
+                <i style="color: red">失败：{{ vv.2 }}</i>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+{% endblock %}

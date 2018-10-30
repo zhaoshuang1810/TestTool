@@ -19,7 +19,7 @@ class SqlDjango(object):
         conn.close()
         return results
 
-    def getParams(self, caseid, businessname):
+    def getParamvalues(self, caseid, businessname):
         sql = 'SELECT id FROM `business` WHERE del_flag=0 AND `name`="' + businessname + '"'
         query = self.execute_sql(sql)
         businessid = query[0][0]
@@ -46,8 +46,8 @@ class SqlDjango(object):
         for var in variables:
             param.append(param_dict.get(var, 'error'))
 
-        return set(param)
+        return tuple(set(param))
 
 
 if __name__ == '__main__':
-    print(SqlDjango().getParams(1, 'ChangeType'))
+    print(SqlDjango().getParamvalues(1, 'change_type'))

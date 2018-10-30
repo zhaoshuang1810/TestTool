@@ -40,6 +40,7 @@ urlpatterns = [
     url(r'^generator/initdir', Tviews.initdir, name='initdir'),
     url(r'^generator/initbusiness', Tviews.initbusiness, name='initbusiness'),
     url(r'^generator/', Tviews.generator, name='generator'),
+    url(r'^report/', Cviews.report, name='report'),
     url(r'^$', Cviews.index, name='index'),
 
     url(r'^static/(?P<path>.*)$', serve, {'document_root': STATIC_ROOT, 'show_indexes': True}),
